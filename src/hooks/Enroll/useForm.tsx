@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 interface Form {
   url: string | ArrayBuffer;
@@ -9,8 +9,7 @@ interface Form {
 }
 
 function useForm() {
-  const [selectedFile, setSelectedFile] = useState<any>();
-  const [fileDataURL, setFileDataURL] = useState<any>(null);
+  const [error, setError] = useState(false);
   const [form, setForm] = useState<Form>({
     url: "",
     brand: "",
@@ -19,44 +18,45 @@ function useForm() {
     freeDelivery: false,
   });
 
-  useEffect(() => {
-    let fileReader: FileReader,
-      isCancel = false;
-    if (selectedFile) {
-      fileReader = new FileReader();
-      fileReader.onload = (e) => {
-        const { result } = e.target as FileReader;
-        if (result && !isCancel) {
-          setForm({
-            ...form,
-            url: result,
-          });
-        }
-      };
-      fileReader.readAsDataURL(selectedFile);
-    }
-    return () => {
-      isCancel = true;
-      if (fileReader && fileReader.readyState === 1) {
-        fileReader.abort();
-      }
-    };
-  }, [selectedFile]);
-
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     setForm({
       ...form,
       [name]: type === "checkbox" ? checked : value,
     });
+
+    if (error) setError(false);
   };
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.currentTarget.files?.[0];
+    if (!file) return alert("파일이 없습니다.");
+    const fileReader = new FileReader();
+    fileReader.onload = (e) => {
+      const { result } = e.target as FileReader;
+      if (result) {
+        setForm({
+          ...form,
+          url: result,
+        });
+      }
+    };
+    fileReader.readAsDataURL(file);
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const { brand, name, price, url } = form;
+
+    if (!brand || !name || !price || !url) {
+      setError(true);
+      return;
+    }
+
     console.log(form);
   };
 
-  return { form, onChange, onSubmit };
+  return { form, error, handleChange, handleSubmit, handleFileChange };
 }
 
 export default useForm;
