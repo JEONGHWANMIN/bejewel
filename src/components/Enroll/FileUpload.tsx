@@ -1,24 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { BsPlusCircleFill } from "react-icons/bs";
 import styled from "styled-components";
 
 interface Props {
   url: string | ArrayBuffer;
+  handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-function FileUpload({ url }: Props) {
-  const [selectedFile, setSelectedFile] = useState<any>();
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.currentTarget.files?.[0];
-    if (!file) return alert("파일이 없습니다.");
-    setSelectedFile(file);
-  };
-
+function FileUpload({ url, handleFileChange }: Props) {
   return (
     <FileBlock>
       <label htmlFor="dogImg">
         <BsPlusCircleFill color="white" size={50} />
-        {selectedFile && <img src={String(url)} alt="preview" />}
+        {url && <img src={String(url)} alt="preview" />}
       </label>
       <input
         type="file"
@@ -36,6 +30,7 @@ export default FileUpload;
 const FileBlock = styled.div`
   position: relative;
   width: 150px;
+
   label {
     cursor: pointer;
     display: flex;
@@ -64,11 +59,13 @@ const FileBlock = styled.div`
       cursor: pointer;
     }
   }
+
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
+
   & input[type="file"] {
     position: absolute;
     width: 1px;
