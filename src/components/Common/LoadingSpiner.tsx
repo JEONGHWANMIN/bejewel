@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 function LoadingSpinner() {
   return (
@@ -27,13 +27,13 @@ const Container = styled.div`
     transform-origin: 40px 40px;
   }
   div:after {
-    content: " ";
+    content: ' ';
     display: block;
     position: absolute;
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: lightgray;
+    background: black;
     margin: -4px 0 0 -4px;
   }
   div:nth-child(1) {
