@@ -1,3 +1,8 @@
+export interface ProductsResponse {
+  products: Product[];
+  totalPage: number;
+}
+
 export interface Product {
   id: number;
   url: string | ArrayBuffer;
