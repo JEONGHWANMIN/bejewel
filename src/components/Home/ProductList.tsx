@@ -1,18 +1,24 @@
-import React from "react";
-import { useLoaderData } from "react-router-dom";
-import { Product } from "src/types/product";
-import styled from "styled-components";
-import ProductCard from "./ProductCard";
+import useProductsFetch from 'src/hooks/Home/useProductsFetch';
+import styled from 'styled-components';
+import LoadingSpinner from '../Common/LoadingSpiner';
+import MoreButton from './MoreButton';
+import ProductCard from './ProductCard';
 
 function ProductList() {
-  const products = useLoaderData() as Product[];
-  console.log("ProductList ,Data", products);
+  const { products, handleMoreData, isLoading, isLastPage } = useProductsFetch();
+  console.log(products);
   return (
-    <Block>
-      {products.map((product) => (
-        <ProductCard product={product} key={product.id} />
-      ))}
-    </Block>
+    <>
+      <Block>
+        {products.map((product) => (
+          <ProductCard product={product} key={product.id} />
+        ))}
+      </Block>
+      <CenterBlock>
+        {!isLastPage && <MoreButton onClick={handleMoreData} />}
+        {isLoading && <LoadingSpinner />}
+      </CenterBlock>
+    </>
   );
 }
 
@@ -30,4 +36,12 @@ const Block = styled.div`
       gap: 15px;
     }
   }
+`;
+
+const CenterBlock = styled.div`
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
 `;
