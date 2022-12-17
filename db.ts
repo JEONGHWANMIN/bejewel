@@ -1,4 +1,20 @@
-export const db = [
+interface Product {
+  id: number;
+  url: string;
+  brand: string;
+  name: string;
+  price: number;
+  freeDelivery: boolean;
+}
+
+export function getProductsDB(): Promise<Product[]> {
+  return new Promise((resolve, reject) => {
+    if (!db) reject("Not Read DB");
+    resolve(db);
+  });
+}
+
+const db = [
   {
     id: 1,
     url: "https://cdn.amondz.com/product/30592/resize/mainImg/PSI_836624.jpeg?v=1670340958033",
@@ -21,7 +37,7 @@ export const db = [
     brand: "제이리사",
     name: "'The rose' petal earrings",
     price: 50400,
-    freeDelivery: true,
+    freeDelivery: false,
   },
   {
     id: 4,
@@ -29,7 +45,7 @@ export const db = [
     brand: "페르토",
     name: "PEBBLE EARRING",
     price: 68000,
-    freeDelivery: true,
+    freeDelivery: false,
   },
   {
     id: 5,
@@ -109,6 +125,6 @@ export const db = [
     brand: "프리모떼",
     name: "TWINKLE CHAIN NECKLACE",
     price: 54400,
-    freeDelivery: true,
+    freeDelivery: false,
   },
 ];
