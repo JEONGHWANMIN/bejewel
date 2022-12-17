@@ -1,13 +1,15 @@
-import express, { Express, Request, Response } from "express";
-import cors from "cors";
-import { getProductsDB } from "./db";
+import express, { Express, Request, Response } from 'express';
+import cors from 'cors';
+import { createProductDB, getProductsDB } from './db';
 
 const app: Express = express();
 app.use(cors());
+app.use(express.json());
+let id = 14;
 
 const port = 8080;
 
-app.get("/products", async (req: Request, res: Response) => {
+app.get('/products', async (req: Request, res: Response) => {
   const products = await getProductsDB();
 
   let { page, size } = req.query;
@@ -23,16 +25,21 @@ app.get("/products", async (req: Request, res: Response) => {
   });
 });
 
-app.post("/product", (req: Request, res: Response) => {
-  res.send("Express + TypeScript Server");
+app.post('/product', async (req: Request, res: Response) => {
+  const create_product = {
+    id: id++,
+    ...req.body,
+  };
+  await createProductDB(create_product);
+  res.send('상품이 정상적으로 등록되었습니다.');
 });
 
-app.patch("/product", (req: Request, res: Response) => {
-  res.send("Express + TypeScript Server");
+app.patch('/product', (req: Request, res: Response) => {
+  res.send('Express + TypeScript Server');
 });
 
-app.delete("/product", (req: Request, res: Response) => {
-  res.send("Express + TypeScript Server");
+app.delete('/product', (req: Request, res: Response) => {
+  res.send('Express + TypeScript Server');
 });
 
 app.listen(port, () => {
