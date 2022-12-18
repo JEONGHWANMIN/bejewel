@@ -12,7 +12,7 @@ export interface CreateProduct {
 }
 
 export interface Product {
-  id: number;
+  id: string;
   url: string | ArrayBuffer;
   brand: string;
   name: string;
