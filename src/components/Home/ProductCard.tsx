@@ -1,6 +1,7 @@
 import { type Product } from 'src/types/product';
 import { currencyPrice } from 'src/utils/utill';
 import styled from 'styled-components';
+import DeleteAndEditBtn from './DeleteAndEditBtn';
 import FreeShipTag from './FreeShipTag';
 
 interface Props {
@@ -11,7 +12,10 @@ function ProductCard({ product }: Props) {
   return (
     <Block>
       <Image src={String(product.url)} alt="product-image" />
-      <Brand>{product.brand}</Brand>
+      <BrandAndBtn>
+        <Brand>{product.brand}</Brand>
+        <DeleteAndEditBtn productId={product.id} />
+      </BrandAndBtn>
       <Name>{product.name}</Name>
       <PriceTagBox>
         <Price>
@@ -36,6 +40,12 @@ const Block = styled.div`
 const Image = styled.img`
   width: 100%;
   height: 310px;
+`;
+
+const BrandAndBtn = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const Brand = styled.p`
