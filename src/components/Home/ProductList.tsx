@@ -1,4 +1,4 @@
-import useProductsFetch from 'src/hooks/Home/useProductsFetch';
+import useProductsFetch from 'src/hooks/Fetch/useProductsFetch';
 import styled from 'styled-components';
 import LoadingSpinner from '../Common/LoadingSpiner';
 import MoreButton from './MoreButton';
