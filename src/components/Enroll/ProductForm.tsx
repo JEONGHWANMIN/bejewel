@@ -1,12 +1,28 @@
 import useForm from 'src/hooks/Enroll/useForm';
+import { type CreateProduct, type Product } from 'src/types/product';
 import styled from 'styled-components';
 import FileUpload from './FileUpload';
 import LabelCheckBox from './LabelCheckBox';
 import LabelInput from './LabelInput';
 import SubmitButton from './SubmitButton';
 
-function ProductForm() {
-  const { form, error, handleChange, handleSubmit, handleFileChange } = useForm();
+interface Props {
+  product?: Product;
+}
+const initialData: CreateProduct = {
+  url: '',
+  brand: '',
+  name: '',
+  price: 0,
+  freeDelivery: false,
+};
+
+function ProductForm({ product }: Props) {
+  const { form, error, handleChange, handleSubmit, handleFileChange } = useForm({
+    product: product || initialData,
+    type: product ? 'edit' : 'create',
+    productId: product?.id,
+  });
 
   return (
     <Form onSubmit={handleSubmit}>
