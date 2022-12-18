@@ -1,6 +1,7 @@
-import { type Product } from "src/types/product";
-import styled from "styled-components";
-import FreeShipTag from "./FreeShipTag";
+import { type Product } from 'src/types/product';
+import { currencyPrice } from 'src/utils/utill';
+import styled from 'styled-components';
+import FreeShipTag from './FreeShipTag';
 
 interface Props {
   product: Product;
@@ -14,7 +15,7 @@ function ProductCard({ product }: Props) {
       <Name>{product.name}</Name>
       <PriceTagBox>
         <Price>
-          <span>{product.price}</span>원
+          <span>{currencyPrice(product.price)}</span>원
         </Price>
         {product.freeDelivery && <FreeShipTag />}
       </PriceTagBox>
