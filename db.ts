@@ -10,7 +10,9 @@ interface Product {
 export function getProductsDB(): Promise<Product[]> {
   return new Promise((resolve, reject) => {
     if (!db) reject('Not Read DB');
-    resolve(db);
+    const copyDB = [...db];
+    const sortedDB = copyDB.sort((a, b) => b.id - a.id);
+    resolve(sortedDB);
   });
 }
 
@@ -18,6 +20,16 @@ export function createProductDB(product: Product): Promise<Product> {
   return new Promise((resolve, reject) => {
     if (!db) reject('Not Read DB');
     db.push(product);
+    resolve(product);
+  });
+}
+
+export function editProductDB(id: number, product: Product) {
+  return new Promise((resolve, reject) => {
+    if (!db) reject('Not Read DB');
+    const index = db.findIndex((product) => product.id === id);
+    if (index === -1) reject('Not Found Product');
+    db[index] = product;
     resolve(product);
   });
 }
