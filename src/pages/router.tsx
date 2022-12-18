@@ -1,14 +1,19 @@
-import { createBrowserRouter } from "react-router-dom";
-import Enroll from "./Enroll";
-import Home from "./Home";
+import { createBrowserRouter } from 'react-router-dom';
+import Edit from './Edit';
+import Enroll from './Enroll';
+import Home from './Home';
 
 export const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <Home />,
   },
   {
-    path: "/enroll",
+    path: '/enroll',
     element: <Enroll />,
+  },
+  {
+    path: '/edit/:id',
+    element: <Edit />,
   },
 ]);
