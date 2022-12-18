@@ -1,18 +1,22 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useLayoutEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createProduct } from 'src/apis/product';
-import { type CreateProduct } from 'src/types/product';
+import { createProduct, editProduct } from 'src/apis/product';
+import { type Product, type CreateProduct } from 'src/types/product';
 
-function useForm() {
+interface Props {
+  product: Product | CreateProduct;
+  type: 'edit' | 'create';
+  productId?: string;
+}
+
+function useForm({ product, type, productId }: Props) {
   const navigate = useNavigate();
   const [error, setError] = useState(false);
-  const [form, setForm] = useState<CreateProduct>({
-    url: '',
-    brand: '',
-    name: '',
-    price: 0,
-    freeDelivery: false,
-  });
+  const [form, setForm] = useState<Product | CreateProduct>(product);
+
+  useLayoutEffect(() => {
+    setForm(product);
+  }, [product]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -49,7 +53,12 @@ function useForm() {
       return;
     }
 
-    const result = await createProduct(form);
+    let result;
+    if (type === 'edit' && productId) {
+      result = await editProduct(productId, form);
+    } else {
+      result = await createProduct(form);
+    }
 
     if (result.status === 200) {
       window.alert('상품이 등록되었습니다.');
