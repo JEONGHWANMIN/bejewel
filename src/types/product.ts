@@ -5,6 +5,7 @@ export interface ProductsResponse {
 
 export interface CreateProduct {
   url: string | ArrayBuffer;
+  category: Category;
   brand: string;
   name: string;
   price: number;
@@ -14,8 +15,11 @@ export interface CreateProduct {
 export interface Product {
   id: string;
   url: string | ArrayBuffer;
+  category: Category;
   brand: string;
   name: string;
   price: number;
   freeDelivery: boolean;
 }
+
+export type Category = '팔찌' | '목걸이' | '반지' | '귀걸이' | '';
