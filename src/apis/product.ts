@@ -41,3 +41,12 @@ export async function editProduct(productId: string, product: CreateProduct) {
     throw new Error('상품 수정 실패');
   }
 }
+
+export async function deleteProduct(productId: string) {
+  try {
+    const result = await instance.delete(`/product/${productId}`);
+    return result;
+  } catch (e) {
+    throw new Error('상품 삭제 실패');
+  }
+}
