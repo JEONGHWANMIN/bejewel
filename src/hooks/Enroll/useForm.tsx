@@ -1,15 +1,14 @@
 import { ChangeEvent, FormEvent, useLayoutEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createProduct, editProduct } from 'src/apis/product';
-import { type Product, type CreateProduct } from 'src/types/product';
+import { type Product, type CreateProduct, type Category } from 'src/types/product';
 
 interface Props {
   product: Product | CreateProduct;
-  type: 'edit' | 'create';
   productId?: string;
 }
 
-function useForm({ product, type, productId }: Props) {
+function useForm({ product, productId }: Props) {
   const navigate = useNavigate();
   const [error, setError] = useState(false);
   const [form, setForm] = useState<Product | CreateProduct>(product);
@@ -26,6 +25,13 @@ function useForm({ product, type, productId }: Props) {
     });
 
     if (error) setError(false);
+  };
+
+  const handleCategoryChange = (value: Category) => {
+    setForm({
+      ...form,
+      category: value,
+    });
   };
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -54,7 +60,7 @@ function useForm({ product, type, productId }: Props) {
     }
 
     let result;
-    if (type === 'edit' && productId) {
+    if (productId) {
       result = await editProduct(productId, form);
     } else {
       result = await createProduct(form);
@@ -66,7 +72,7 @@ function useForm({ product, type, productId }: Props) {
     }
   };
 
-  return { form, error, handleChange, handleSubmit, handleFileChange };
+  return { form, error, handleChange, handleSubmit, handleFileChange, handleCategoryChange };
 }
 
 export default useForm;
