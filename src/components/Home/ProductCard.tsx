@@ -1,7 +1,7 @@
+import { useNavigate } from 'react-router';
 import { type Product } from 'src/types/product';
 import { currencyPrice } from 'src/utils/utill';
 import styled from 'styled-components';
-import DeleteAndEditBtn from './DeleteAndEditBtn';
 import FreeShipTag from './FreeShipTag';
 
 interface Props {
@@ -9,13 +9,12 @@ interface Props {
 }
 
 function ProductCard({ product }: Props) {
+  const navigate = useNavigate();
   return (
-    <Block>
+    <Block onClick={() => navigate(`/detail/${product.id}`)}>
       <Image src={String(product.url)} alt="product-image" />
-      <BrandAndBtn>
-        <Brand>{product.brand}</Brand>
-        <DeleteAndEditBtn productId={product.id} />
-      </BrandAndBtn>
+      <Category>{product.category}</Category>
+      <Brand>{product.brand}</Brand>
       <Name>{product.name}</Name>
       <PriceTagBox>
         <Price>
@@ -42,10 +41,10 @@ const Image = styled.img`
   height: 310px;
 `;
 
-const BrandAndBtn = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+const Category = styled.p`
+  font-size: 14px;
+  color: #555454;
+  margin: 4px 0;
 `;
 
 const Brand = styled.p`
