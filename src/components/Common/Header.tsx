@@ -1,15 +1,14 @@
-import React from "react";
-import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
 function Header() {
   return (
     <HeaderBox>
       <HeaderContent>
-        <Logo to={"/"}>amonds</Logo>
+        <Logo to={'/'}>amonds</Logo>
         <Nav>
-          <StyledLink to={"/"}>상품리스트</StyledLink>
-          <StyledLink to={"/enroll"}>상품등록</StyledLink>
+          <StyledLink to={'/'}>상품 목록</StyledLink>
+          <StyledLink to={'/enroll'}>상품등록</StyledLink>
         </Nav>
       </HeaderContent>
     </HeaderBox>
