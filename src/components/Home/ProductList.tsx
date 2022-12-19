@@ -1,3 +1,4 @@
+import React from 'react';
 import useProductsFetch from 'src/hooks/Fetch/useProductsFetch';
 import styled from 'styled-components';
 import LoadingSpinner from '../Common/LoadingSpiner';
@@ -6,12 +7,13 @@ import ProductCard from './ProductCard';
 
 function ProductList() {
   const { products, handleMoreData, isLoading, isLastPage } = useProductsFetch();
-  console.log(products);
   return (
     <>
       <Block>
         {products.map((product) => (
-          <ProductCard product={product} key={product.id} />
+          <React.Fragment key={product.id}>
+            <ProductCard product={product} />
+          </React.Fragment>
         ))}
       </Block>
       <CenterBlock>
