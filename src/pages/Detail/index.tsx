@@ -5,12 +5,13 @@ import { currencyPrice } from 'src/utils/utill';
 import styled from 'styled-components';
 import DeleteAndEditBtn from 'src/components/Home/DeleteAndEditBtn';
 import FreeShipTag from 'src/components/Home/FreeShipTag';
+import LoadingSpinner from 'src/components/Common/LoadingSpiner';
 
 function Detail() {
   const { id } = useParams();
   const { product, isLoading } = useProductFetch(id!);
 
-  if (isLoading || !product) return <div>로딩중</div>;
+  if (isLoading || !product) return <LoadingSpinner />;
 
   return (
     <Layout>
@@ -20,6 +21,7 @@ function Detail() {
         </LeftBox>
         <RightBox>
           {product.freeDelivery && <FreeShipTag />}
+          <Category>{product.category}</Category>
           <Brand>{product.brand}</Brand>
           <Name>{product.name}</Name>
           <Price>{currencyPrice(product.price)}원</Price>
@@ -40,6 +42,8 @@ const Container = styled.div`
   margin: auto;
   gap: 20px;
   margin-top: 10px;
+  padding: 30px;
+  border: solid 1px lightgray;
 `;
 
 const LeftBox = styled.div`
@@ -50,8 +54,18 @@ const LeftBox = styled.div`
     height: 400px;
   }
 `;
+
 const RightBox = styled.div`
   width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+const Category = styled.p`
+  font-size: 14px;
+  color: #555454;
+  margin: 4px 0;
 `;
 
 const Brand = styled.p`
@@ -59,11 +73,13 @@ const Brand = styled.p`
   font-weight: 900;
   margin: 8px 0;
 `;
+
 const Name = styled.p`
   font-size: 24px;
   color: #353434;
   margin-bottom: 15px;
 `;
+
 const Price = styled.p`
   font-size: 24px;
   color: #353434;
