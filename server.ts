@@ -1,6 +1,6 @@
 import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
-import { createProductDB, editProductDB, getProductsDB } from './db';
+import { createProductDB, deleteProductDB, editProductDB, getProductsDB } from './db';
 
 const app: Express = express();
 app.use(cors());
@@ -47,8 +47,11 @@ app.patch('/product/:id', async (req: Request, res: Response) => {
   res.send('상품이 정상적으로 수정되었습니다.');
 });
 
-app.delete('/product', (req: Request, res: Response) => {
-  res.send('Express + TypeScript Server');
+app.delete('/product/:id', async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const db = await deleteProductDB(Number(id));
+  console.log('DB', db);
+  res.json(db);
 });
 
 app.listen(port, () => {
