@@ -24,7 +24,13 @@ const Container = styled.div`
   width: 560px;
   margin: auto;
   margin-top: 2%;
-  padding: 30px;
+  padding: 20px 0;
+
+  @media screen and (max-width: 768px) {
+    & {
+      width: 100%;
+    }
+  }
 `;
 
 const Title = styled.h1`
