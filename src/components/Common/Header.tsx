@@ -36,6 +36,12 @@ const HeaderContent = styled.div`
   max-width: 1980px;
   height: 73px;
   margin: auto;
+
+  @media screen and (max-width: 768px) {
+    & {
+      padding: 0 20px;
+    }
+  }
 `;
 
 const Logo = styled(NavLink)`
