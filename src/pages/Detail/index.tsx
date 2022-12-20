@@ -44,14 +44,32 @@ const Container = styled.div`
   margin-top: 10px;
   padding: 30px;
   border: solid 1px lightgray;
+
+  @media screen and (max-width: 768px) {
+    & {
+      flex-direction: column;
+      gap: 0;
+    }
+  }
 `;
 
 const LeftBox = styled.div`
   width: 50%;
 
   img {
-    width: 100%;
+    width: 80%;
     height: 400px;
+  }
+
+  @media screen and (max-width: 768px) {
+    & {
+      width: 100%;
+    }
+
+    img {
+      width: 100%;
+      height: 350px;
+    }
   }
 `;
 
@@ -60,6 +78,14 @@ const RightBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  @media screen and (max-width: 768px) {
+    & {
+      margin-top: 10px;
+      width: 100%;
+      gap: 5px;
+    }
+  }
 `;
 
 const Category = styled.p`

@@ -1,6 +1,6 @@
-import Layout from "src/components/Layout/Layout";
-import styled from "styled-components";
-import ProductForm from "src/components/Enroll/ProductForm";
+import Layout from 'src/components/Layout/Layout';
+import styled from 'styled-components';
+import ProductForm from 'src/components/Enroll/ProductForm';
 
 function Enroll() {
   return (
@@ -16,11 +16,17 @@ function Enroll() {
 export default Enroll;
 
 const Container = styled.div`
+  margin: auto;
   border: solid 1px lightgray;
   width: 560px;
-  margin: auto;
   margin-top: 2%;
   padding: 30px;
+
+  @media screen and (max-width: 768px) {
+    & {
+      width: 100%;
+    }
+  }
 `;
 
 const Title = styled.h1`
