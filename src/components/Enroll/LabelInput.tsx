@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import styled, { css } from "styled-components";
-import Input from "./Input";
+import React, { useState } from 'react';
+import styled, { css } from 'styled-components';
+import Input from './Input';
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
@@ -28,7 +28,6 @@ const Block = styled.div`
 export const Label = styled.label<{ focus?: boolean }>`
   font-size: 18px;
   font-weight: 700;
-  padding-left: 10px;
   color: gray;
 
   ${({ focus }) =>
