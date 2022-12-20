@@ -7,6 +7,9 @@ import ProductCard from './ProductCard';
 
 function ProductList() {
   const { products, handleMoreData, isLoading, isLastPage } = useProductsFetch();
+
+  if (products.length === 0) return <NoProducts>상품 데이터가 없습니다.</NoProducts>;
+
   return (
     <Container>
       <Block>
@@ -28,6 +31,13 @@ export default ProductList;
 
 const Container = styled.div`
   margin-bottom: 30px;
+`;
+
+const NoProducts = styled.div`
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+  margin: 30px;
 `;
 
 const Block = styled.div`
