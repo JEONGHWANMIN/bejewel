@@ -8,7 +8,7 @@ import ProductCard from './ProductCard';
 function ProductList() {
   const { products, handleMoreData, isLoading, isLastPage } = useProductsFetch();
   return (
-    <>
+    <Container>
       <Block>
         {products.map((product) => (
           <React.Fragment key={product.id}>
@@ -20,11 +20,15 @@ function ProductList() {
         {!isLastPage && <MoreButton onClick={handleMoreData} />}
         {isLoading && <LoadingSpinner />}
       </CenterBlock>
-    </>
+    </Container>
   );
 }
 
 export default ProductList;
+
+const Container = styled.div`
+  margin-bottom: 30px;
+`;
 
 const Block = styled.div`
   padding: 0 103px;
@@ -36,6 +40,7 @@ const Block = styled.div`
     & {
       justify-content: center;
       gap: 15px;
+      padding: 0 20px;
     }
   }
 `;
