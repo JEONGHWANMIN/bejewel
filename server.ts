@@ -50,7 +50,6 @@ app.patch('/product/:id', async (req: Request, res: Response) => {
 app.delete('/product/:id', async (req: Request, res: Response) => {
   const { id } = req.params;
   const db = await deleteProductDB(Number(id));
-  console.log('DB', db);
   res.json(db);
 });
 
