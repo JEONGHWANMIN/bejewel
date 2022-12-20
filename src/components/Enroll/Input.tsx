@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {}
 
@@ -14,7 +14,6 @@ const StyleInput = styled.input`
   height: 30px;
   border: none;
   border-bottom: solid 3px lightgray;
-  padding: 0 10px;
   font-size: 15px;
 
   &:focus {
