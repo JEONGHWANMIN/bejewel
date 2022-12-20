@@ -22,6 +22,7 @@ function DropDownCtg({ category, handleCategoryChange }: Props) {
         <DropList>
           {Categorys.map((item) => (
             <DropItem
+              key={item}
               onClick={() => {
                 handleCategoryChange(item);
                 handleDropClick(false);
