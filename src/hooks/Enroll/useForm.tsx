@@ -52,9 +52,9 @@ function useForm({ product, productId }: Props) {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { brand, name, price, url } = form;
+    const { brand, name, price, url, category } = form;
 
-    if (!brand || !name || !price || !url) {
+    if (!brand || !name || !price || !url || !category) {
       setError(true);
       return;
     }
