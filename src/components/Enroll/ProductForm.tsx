@@ -1,7 +1,7 @@
 import useForm from 'src/hooks/Enroll/useForm';
 import { type CreateProduct, type Product } from 'src/types/product';
 import styled from 'styled-components';
-import DropItems from './DropDownCtg';
+import DropDownCtg from './DropDownCtg';
 import FileUpload from './FileUpload';
 import LabelCheckBox from './LabelCheckBox';
 import LabelInput from './LabelInput';
@@ -28,7 +28,7 @@ function ProductForm({ product }: Props) {
   return (
     <Form onSubmit={handleSubmit}>
       <FileUpload url={form.url} handleFileChange={handleFileChange} />
-      <DropItems category={form.category} handleCategoryChange={handleCategoryChange} />
+      <DropDownCtg category={form.category} handleCategoryChange={handleCategoryChange} />
       <LabelInput name="brand" label={'브랜드'} onChange={handleChange} value={form.brand} />
       <LabelInput name="name" label={'상품명'} onChange={handleChange} value={form.name} />
       <LabelInput
