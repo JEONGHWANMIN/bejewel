@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { MdOutlineArrowDropDown } from 'react-icons/md';
 import { type Category } from 'src/types/product';
+import useDropDown from 'src/hooks/Enroll/useDropDown';
 
 const Categorys: Category[] = ['팔찌', '목걸이', '반지', '귀걸이'];
 
@@ -11,25 +11,12 @@ interface Props {
 }
 
 function DropDownCtg({ category, handleCategoryChange }: Props) {
-  const [focus, setFocus] = useState(false);
-  const [isDrop, setIsDrop] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setIsDrop(false);
-      }
-    };
-    document.addEventListener('click', handleClickOutside);
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  });
+  const { isDrop, ref, handleDropClick } = useDropDown();
   return (
-    <DropBlock ref={ref} onFocus={() => setFocus(true)} onBlur={() => setFocus(false)}>
-      <Label focus={focus}>카테고리</Label>
-      <Value onClick={() => setIsDrop(!isDrop)}>
-        <span>{category || '선택'}</span> <MdOutlineArrowDropDown size={28} />
+    <DropBlock ref={ref}>
+      <Label isDrop={isDrop}>카테고리</Label>
+      <Value onClick={() => handleDropClick()}>
+        {category ? <IsValue>{category}</IsValue> : <NoValue>선택</NoValue>} <MdOutlineArrowDropDown size={28} />
       </Value>
       {isDrop && (
         <DropList>
@@ -37,7 +24,7 @@ function DropDownCtg({ category, handleCategoryChange }: Props) {
             <DropItem
               onClick={() => {
                 handleCategoryChange(item);
-                setIsDrop(false);
+                handleDropClick(false);
               }}
             >
               {item}
@@ -58,14 +45,13 @@ const DropBlock = styled.div`
   flex-direction: column;
 `;
 
-const Label = styled.label<{ focus: boolean }>`
+const Label = styled.label<{ isDrop: boolean }>`
   font-size: 18px;
   font-weight: 700;
-  padding-left: 10px;
   color: gray;
 
-  ${({ focus }) =>
-    focus &&
+  ${({ isDrop }) =>
+    isDrop &&
     css`
       transition: all 0.3s ease-in-out;
       color: black;
@@ -77,20 +63,28 @@ const Value = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: 40px;
+  height: 30px;
+  margin-top: 20px;
   border: none;
-  padding-left: 10px;
   border-bottom: solid 3px lightgray;
   font-size: 15px;
   color: gray;
   cursor: pointer;
 `;
 
+const IsValue = styled.span`
+  color: black;
+`;
+
+const NoValue = styled.span`
+  color: lightgray;
+`;
+
 const DropList = styled.div`
   position: absolute;
-  top: 55px;
+  top: 75px;
   left: 0;
-  width: 100%;
+  width: 50%;
   height: 100px;
   border: solid 1px lightgray;
   background-color: white;
@@ -99,9 +93,21 @@ const DropList = styled.div`
   justify-content: space-around;
   gap: 10px;
   padding: 10px;
+  animation: growDown 250ms ease-in;
+  transform-origin: top center;
+
+  @keyframes growDown {
+    0% {
+      transform: scaleY(0);
+    }
+    100% {
+      transform: scaleY(1);
+    }
+  }
 `;
 
 const DropItem = styled.div`
+  padding: 3px 0;
   font-size: 14px;
   font-weight: 700;
   color: gray;
@@ -110,6 +116,7 @@ const DropItem = styled.div`
   cursor: pointer;
 
   &:hover {
+    background-color: #e9e6e6;
     color: black;
   }
 `;
